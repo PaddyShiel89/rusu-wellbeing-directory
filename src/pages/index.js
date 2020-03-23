@@ -1,28 +1,66 @@
 import React from "react"
-// import styled from "styled-components"
+
 import Layout from "../layout/Layout"
-import { Link } from "gatsby"
+import { PageTitle } from "../layout/Heading"
+import { ContainerMax } from "../layout/Grid"
+import HubCard, { HubCardGroup } from "../components/HubCard"
 
 export default () => (
   <Layout>
-    <h1>Hello world</h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tincidunt
-      risus id consectetur sodales. Curabitur sed elit tellus. Duis tincidunt ex
-      vitae ligula ornare pellentesque. Nunc interdum consequat diam nec
-      venenatis. Vivamus at vestibulum mauris.
-    </p>
-    <p>
-      Fusce sed tellus ac mauris ornare mollis et quis odio. Nullam viverra
-      mollis est, nec ultrices odio cursus ac. Aenean quis faucibus turpis. Ut
-      id risus vel odio efficitur volutpat.
-    </p>
-    <hr />
-    <Link to={"/"}>Homepage</Link>
-    <ol>
-      <li>number 1</li>
-      <li>number 2</li>
-      <li>number 3</li>
-    </ol>
+    <ContainerMax>
+      <PageTitle>Hello world</PageTitle>
+      <p>Welcome to the RUSU Wellbeing Directory. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vel dolor nec dui iaculis congue.</p>
+      <HubCardGroup>
+      <HubCard
+          title="I Need Help Now"
+          link="/i-need-help-now/"
+          img="https://picsum.photos/675/380"
+          alt="Alt text"
+          >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vel dolor nec dui iaculis congue. Suspendisse hendrerit commodo
+            felis quis blandit. Nunc tempor augue a mattis aliquet.
+          </p>
+        </HubCard>
+        <HubCard
+          title="I'm Worried About..."
+          link="/im-worried-about/"
+          img="https://picsum.photos/675/380"
+          alt="Alt text"
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vel dolor nec dui iaculis congue. Suspendisse hendrerit commodo
+            felis quis blandit. Nunc tempor augue a mattis aliquet.
+          </p>
+        </HubCard>
+        <HubCard
+          title="I Need Advice On..."
+          link="/i-need-advice-on/"
+          img="https://picsum.photos/675/380"
+          alt="Alt text"
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vel dolor nec dui iaculis congue. Suspendisse hendrerit commodo
+            felis quis blandit. Nunc tempor augue a mattis aliquet.
+          </p>
+        </HubCard>
+        <HubCard
+          title="Mental Health Support"
+          link="/mental-health-support/"
+          img="https://picsum.photos/675/380"
+          alt="Alt text"
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vel dolor nec dui iaculis congue. Suspendisse hendrerit commodo
+            felis quis blandit. Nunc tempor augue a mattis aliquet.
+          </p>
+        </HubCard>
+      </HubCardGroup>
+    </ContainerMax>
   </Layout>
 )

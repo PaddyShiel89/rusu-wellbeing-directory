@@ -35,34 +35,47 @@ const base = {
   darkThemeColor: colorStyles.gray[100],
 }
 
+const h1multiplier = 2.5
+const h2multiplier = 2
+const h3multiplier = 1.75
+const h4multiplier = 1.5
+const h5multiplier = 1.25
+const h6multiplier = 1
+
 const headings = {
   h1: {
-    size: multiplyRem(size.base, 2.5),
+    multiplier: h1multiplier,
+    size: multiplyRem(size.base, h1multiplier),
     transform: `uppercase`,
     weight: 900,
   },
   h2: {
-    size: multiplyRem(size.base, 2),
+    multiplier: h2multiplier,
+    size: multiplyRem(size.base, h2multiplier),
     transform: `uppercase`,
     weight: weight.bold,
   },
   h3: {
-    size: multiplyRem(size.base, 1.75),
+    multiplier: h3multiplier,
+    size: multiplyRem(size.base, h3multiplier),
     transform: `none`,
     weight: weight.bold,
   },
   h4: {
-    size: multiplyRem(size.base, 1.5),
+    multiplier: h4multiplier,
+    size: multiplyRem(size.base, h4multiplier),
     transform: `none`,
-    weight: weight.normal,
+    weight: weight.bold,
   },
   h5: {
-    size: multiplyRem(size.base, 1.25),
+    multiplier: h5multiplier,
+    size: multiplyRem(size.base, h5multiplier),
     transform: `none`,
     weight: weight.normal,
   },
   h6: {
-    size: size.base,
+    multiplier: h6multiplier,
+    size: multiplyRem(size.base, h6multiplier),
     transform: `none`,
     weight: weight.normal,
   },
@@ -71,13 +84,13 @@ const headings = {
 }
 
 const link = {
-  color: colorStyles.blue[500],
+  color: colorStyles.blue[600],
   decoration: `none`,
-  darkThemeColor: colorStyles.blue[400],
+  darkThemeColor: colorStyles.blue[300],
   hover: {
-    color: colorStyles.blue[700],
+    color: colorStyles.blue[800],
     decoration: `underline`,
-    darkThemeColor: colorStyles.blue[200]
+    darkThemeColor: colorStyles.blue[100]
   },
 }
 

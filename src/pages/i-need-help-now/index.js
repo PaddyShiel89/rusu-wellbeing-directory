@@ -1,17 +1,28 @@
 import React from "react"
-import Layout from "../layout/Layout"
-import { CardGroup } from "../components/Card"
-import HubCard from "../components/HubCard"
-import { PageTitle } from "../layout/Heading"
-import { ContainerMax } from "../layout/Grid"
+import Layout from "../../layout/Layout"
+import HubCard, { HubCardGroup } from "../../components/HubCard"
+import { PageTitle } from "../../layout/Heading"
+import { ContainerMax } from "../../layout/Grid"
 
 export default () => (
   <Layout title="I Need Help Now">
-    <ContainerMax>
+    <ContainerMax style={{marginBottom: `3rem`}}>
       <PageTitle>I need help now</PageTitle>
-      <p>This is an introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at sem fermentum, eleifend nisl vel, pulvinar metus. Sed dignissim hendrerit lectus, id blandit elit. Integer bibendum justo vitae volutpat facilisis. Mauris placerat turpis est, non aliquet libero elementum sit amet. Vestibulum congue commodo mauris. Nunc dignissim urna sit amet sapien elementum dignissim.</p>
-      <CardGroup>
-        <HubCard title="Emergency contacts" link="/">
+      <p>
+        This is an introduction. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Etiam at sem fermentum, eleifend nisl vel, pulvinar
+        metus. Sed dignissim hendrerit lectus, id blandit elit. Integer bibendum
+        justo vitae volutpat facilisis. Mauris placerat turpis est, non aliquet
+        libero elementum sit amet. Vestibulum congue commodo mauris. Nunc
+        dignissim urna sit amet sapien elementum dignissim.
+      </p>
+    </ContainerMax>
+    <ContainerMax>
+      <HubCardGroup>
+        <HubCard
+          title="Emergency contacts"
+          link="/i-need-help-now/emergency-contacts/"
+        >
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             vel dolor nec dui iaculis congue. Suspendisse hendrerit commodo
@@ -39,7 +50,7 @@ export default () => (
             id fermentum lectus.
           </p>
         </HubCard>
-      </CardGroup>
+      </HubCardGroup>
     </ContainerMax>
   </Layout>
 )

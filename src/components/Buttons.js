@@ -2,11 +2,14 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowAltCircleRight } from "@fortawesome/pro-solid-svg-icons"
+
 import { color, font, spacing } from "../styles/styles"
-import { divideRem, multiplyRem } from "../utils/maths"
+import { divideRem } from "../utils/maths"
 
 const base = {
-  borderRadius: multiplyRem(spacing.spacer, 4),
+  borderRadius: `42px`,
   borderWidth: `1px`,
   color: font.base.color,
   fontFamily: font.base.family,
@@ -20,37 +23,91 @@ const Btn = styled(props => <Link {...props} />)`
   display: inline-block;
   font-family: ${base.fontFamily};
   font-weight: ${base.fontWeight};
-  color: ${props => props.primary ? color.white : base.color};
+  color: ${base.color};
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  background-color: ${props => props.primary ? font.link.color : `transparent`};
+  background-color: transparent;
   border: ${base.borderWidth} solid transparent;
   padding: ${base.paddingY} ${base.paddingX};
   transition: ${base.transition};
   border-radius: ${base.borderRadius};
   overflow: hidden;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     text-decoration: none;
-    color: ${props => props.primary === `true` ? color.white : base.color};
-    background-color: ${props => props.primary ? font.link.hover.color : `transparent`};
+    color: ${base.color};
+    background-color: transparent;
   }
+
+  ${props =>
+    props.styling === `primary`
+      ? `
+      color: ${props.theme.isDark ? color.black : color.white};
+      background-color: ${
+        props.theme.isDark ? font.link.darkThemeColor : font.link.color
+      };
+      &:hover, &:focus {
+        color: ${props.theme.isDark ? color.black : color.white};
+        background-color: ${
+          props.theme.isDark
+            ? font.link.hover.darkThemeColor
+            : font.link.hover.color
+        };
+      }
+    `
+      : null}
 `
 
 const Button = props => {
-  const convertPrimary = props.primary.toString()
-  return <Btn  {...props} primary={convertPrimary} />
+  return <Btn {...props} />
 }
+
+const Icon = styled(props => <FontAwesomeIcon {...props} />)`
+  margin-right: ${spacing.spacer};
+  font-size: ${font.size.base};
+`
 
 export default Button
 
 Button.propTypes = {
   to: PropTypes.string.isRequired,
-  primary: PropTypes.bool,
+  styling: PropTypes.string,
 }
 
 Button.defaultProps = {
   to: null,
-  primary: false,
+  styling: null,
+}
+
+// ButtonWrapped is to align multiple children in a button, such as when using an icon
+const BtnWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const ButtonWrapped = props => {
+  const moddedProps = { ...props }
+  delete moddedProps.children
+
+  return (
+    <Btn {...moddedProps}>
+      <BtnWrapper>{props.children}</BtnWrapper>
+    </Btn>
+  )
+}
+
+export const ButtonPrimary = props => {
+  const moddedProps = { ...props }
+  delete moddedProps.children
+
+  return (
+    <Btn {...moddedProps} styling="primary">
+      <BtnWrapper>
+        <Icon icon={faArrowAltCircleRight} />
+        {props.children}
+      </BtnWrapper>
+    </Btn>
+  )
 }

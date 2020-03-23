@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components"
-import { color, font, form, legend, table, transition, spacing } from "./styles"
+import { breakpointMixin, color, font, form, legend, table, transition, spacing } from "./styles"
 import { divideRem } from "../utils/maths"
+
+const responsiveFontBreakpoint = breakpointMixin.min.lg
+const responsiveFontMultiplier = 1
 
 export default createGlobalStyle`
   *,
@@ -16,6 +19,13 @@ export default createGlobalStyle`
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    height: 100%;
+  }
+
+  #gatsby-focus-wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: ${spacing.footerHeight.base};
   }
 
   body {
@@ -45,6 +55,67 @@ export default createGlobalStyle`
   h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: ${font.headings.marginBottom};
+    line-height: ${font.headings.lineHeight};
+  }
+
+  h1 {
+    font-size: calc(${font.base.size} + ${responsiveFontMultiplier * font.headings.h1.multiplier}vw);
+    font-weight: ${font.headings.h1.weight};
+    text-transform: ${font.headings.h1.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h1.size};
+    `}
+  }
+
+  h2 {
+    font-size: calc(${font.base.size} + ${responsiveFontMultiplier * font.headings.h2.multiplier}vw);
+    font-weight: ${font.headings.h2.weight};
+    text-transform: ${font.headings.h2.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h2.size};
+    `}
+  }
+
+  h3 {
+    font-size: calc(${font.base.size} + ${responsiveFontMultiplier * font.headings.h3.multiplier}vw);
+    font-weight: ${font.headings.h3.weight};
+    text-transform: ${font.headings.h3.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h3.size};
+    `}
+  }
+
+  h4 {
+    font-size: calc(${font.base.size} + ${responsiveFontMultiplier * font.headings.h4.multiplier}vw);
+    font-weight: ${font.headings.h4.weight};
+    text-transform: ${font.headings.h4.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h4.size};
+    `}
+  }
+
+  h5 {
+    font-size: calc(${font.base.size} + ${responsiveFontMultiplier * font.headings.h5.multiplier}vw);
+    font-weight: ${font.headings.h5.weight};
+    text-transform: ${font.headings.h5.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h5.size};
+    `}
+  }
+
+  h6 {
+    font-size: ${font.base.size};
+    font-weight: ${font.headings.h6.weight};
+    text-transform: ${font.headings.h6.transform};
+
+    ${responsiveFontBreakpoint`
+      font-size: ${font.headings.h6.size};
+    `}
   }
 
   p {

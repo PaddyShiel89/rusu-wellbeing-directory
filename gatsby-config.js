@@ -4,6 +4,10 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
+require('dotenv').config({
+  path: `.env${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     author: `Patrick Shiel`,
@@ -66,6 +70,13 @@ module.exports = {
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: `standalone`,
         icon: `static/favicon.ico`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `d8qgl0fke0ay`,
+        accessToken: `_pjRr9sLX2mz0gXJcW9Zy_Fqu-3pOGQeortKgf0BipU`,
       },
     },
     `gatsby-plugin-offline`,

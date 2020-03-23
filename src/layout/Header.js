@@ -9,7 +9,8 @@ import {
   font,
   gridMixin,
   spacing,
-  transition
+  transition,
+  color
 } from "../styles/styles"
 import { divideRem } from "../utils/maths"
 
@@ -17,7 +18,11 @@ import { divideRem } from "../utils/maths"
 // Set breakpoint at which mobile navigation is replaced with desktop navigation
 const navigationBreakpoint = breakpointMixin.min.lg
 
-const componentVars = {
+// Set navlink active classname to add active styles to the link if the user is browsing within the section
+const activeClass = `active`
+
+const styleVars = {
+  linkBorder: `2px`,
   linkFontSize: font.base.size,
   linkLineHeight: font.base.lineHeight,
   linkPaddingY: divideRem(spacing.spacer, 2),
@@ -104,16 +109,25 @@ const Nav = styled.nav`
 
   & a {
     display: block;
-    padding: ${componentVars.linkPaddingY} 0;
+    padding: calc(${styleVars.linkPaddingY} + ${styleVars.linkBorder}) ${spacing.spacer} ${styleVars.linkPaddingY};
+    border-bottom: ${styleVars.linkBorder} solid transparent;
+    font-size: 1.6rem;
 
     &:hover {
       text-decoration: none;
+      color: ${props => props.theme.isDark ? color.black : color.white} !important;
+      background-color: ${props => props.theme.isDark ? font.link.darkThemeColor : font.link.color} !important;
+      border-bottom-color: ${props => props.theme.isDark ? font.link.darkThemeColor : font.link.color} !important;
     }
 
     ${navigationBreakpoint`
       padding-left: ${spacing.spacer};
       padding-right: ${spacing.spacer};
     `}
+  }
+
+  & .${activeClass} {
+    border-bottom-color: ${props => props.theme.isDark ? font.link.darkThemeColor : font.link.color};
   }
 `
 
@@ -135,9 +149,11 @@ const NavButton = styled.button`
 // Navigation item component
 const NavItem = data => (
   <li>
-    <Link to={data.link}>{data.name}</Link>
+    <Link to={data.link} partiallyActive={true} activeClassName={activeClass}>{data.name}</Link>
   </li>
 )
+
+const navID = `TopNav`
 
 export default props => (
   <StaticQuery
@@ -153,7 +169,7 @@ export default props => (
             </Logo>
 
             <NavButton
-              aria-controls="TopNav"
+              aria-controls={navID}
               aria-expanded={menuOpen}
               aria-label={`${menuOpen ? `Close` : `Open`} navigation menu`}
               type="button"
@@ -162,10 +178,10 @@ export default props => (
               Menu
             </NavButton>
               <Collapse in={menuOpen} timeout={transition.duration.collapse}>
-              <Nav id="TopNav" aria-hidden={!menuOpen}>
+              <Nav id={navID} aria-hidden={!menuOpen}>
                 <ul>
                   {siteMetadata.menuLinks.map(item => (
-                    <NavItem {...item} key={`TopNav${item.name}`} />
+                    <NavItem {...item} key={`${navID}${item.name}`} />
                   ))}
                 </ul>
                 </Nav>

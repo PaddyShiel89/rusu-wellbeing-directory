@@ -1,12 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import Button from "../components/Buttons"
 
-import { color, font, spacing } from "../styles/styles"
-import { divideRem } from "../utils/maths"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowAltCircleRight } from "@fortawesome/pro-solid-svg-icons"
+import { breakpointMixin, color, gridMixin, spacing } from "../styles/styles"
+import { divideRem, multiplyRem } from "../utils/maths"
+import { ButtonPrimary } from "../components/Buttons"
+import { Row } from "../layout/Grid"
 
 const styleVar = {
   borderColor: color.gray[400],
@@ -37,12 +36,8 @@ const StyledHubCard = styled.div`
       props.theme.isDark ? color.black : color.white};
   }
 
-  & h4 {
+  & h3 {
     margin-bottom: 0;
-    font-size: ${font.headings.h4.size};
-    font-weight: ${font.headings.h4.weight};
-    line-height: ${font.headings.lineHeight};
-    text-transform: ${font.headings.h4.transform};
   }
 
   & > div {
@@ -62,26 +57,24 @@ const StyledHubCard = styled.div`
   }
 `
 const HubCard = props => {
+  const img = props.img ? (
+      <img src={props.img} alt={props.alt} />
+  ) : null
+
   return (
     <StyledHubCard>
+      {img}
       <header>
-        <h4>{props.title}</h4>
+        <h3>{props.title}</h3>
       </header>
       <div>{props.children}</div>
       <footer>
-        <Button
+        <ButtonPrimary
           aria-label={`Browse the '${props.title}' directory`}
-          primary
           to={props.link}
         >
-          <div style={{ display: `flex`, alignItems: `center` }}>
-            <FontAwesomeIcon
-              icon={faArrowAltCircleRight}
-              style={{ marginRight: spacing.spacer, fontSize: font.base.size }}
-            />
-            Browse the directory
-          </div>
-        </Button>
+          Browse the directory
+        </ButtonPrimary>
       </footer>
     </StyledHubCard>
   )
@@ -90,11 +83,35 @@ const HubCard = props => {
 export default HubCard
 
 HubCard.propTypes = {
+  alt: PropTypes.string,
+  image: PropTypes.string,
   link: PropTypes.string,
   title: PropTypes.string,
 }
 
 HubCard.defaultProps = {
+  alt: null,
+  image: null,
   link: null,
   title: null,
 }
+
+//==================================================
+
+const ChildItem = styled.div`
+  ${gridMixin.colBase()}
+  ${gridMixin.col(12)}
+  margin-bottom: ${multiplyRem(spacing.spacer, 2)};
+
+  ${breakpointMixin.min.md`
+    ${gridMixin.col(6)}
+  `}
+`
+
+export const HubCardGroup = props => (
+  <Row>
+    {props.children.map((child, index) => (
+      <ChildItem key={index}>{child}</ChildItem>
+    ))}
+  </Row>
+)
