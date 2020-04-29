@@ -3,6 +3,7 @@
   "private": true,
   "description": "RUSU Welfare Directory",
   "version": "1.0.0",
+  "author": "Patrick Shiel",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop --open",
