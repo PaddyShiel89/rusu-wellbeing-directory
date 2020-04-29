@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import Img from "gatsby-image/withIEPolyfill"
 
 import { breakpointMixin, color, gridMixin, spacing } from "../styles/styles"
 import { divideRem, multiplyRem } from "../utils/maths"
@@ -13,7 +14,31 @@ const styleVar = {
   borderWidth: `0`,
 }
 
-const StyledHubCard = styled.div`
+const HubCard = styled(props => {
+  const img = props.image ? (
+    <Img fluid={props.image.fluid} alt={props.image.description} />
+  ) : null
+
+  return (
+    <div className={props.className}>
+      {img}
+      <header>
+        <h3>{props.title}</h3>
+      </header>
+      <section>
+        <p>{props.description}</p>
+      </section>
+      <footer>
+        <ButtonPrimary
+          aria-label={`Browse the '${props.title}' directory`}
+          to={props.link}
+        >
+          Browse the directory
+        </ButtonPrimary>
+      </footer>
+    </div>
+  )
+})`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -26,8 +51,14 @@ const StyledHubCard = styled.div`
   border-radius: ${styleVar.borderRadius};
   overflow: hidden;
   height: 100%;
-  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.012), 0 6px 5px rgba(0, 0, 0, 0.024),
-    0 9px 10px rgba(0, 0, 0, 0.036), 0 12px 12px rgba(0, 0, 0, 0.048);
+  box-shadow: 0 3px 2px
+      rgba(0, 0, 0, ${props => (props.theme.isDark ? `0.036` : `0.012`)}),
+    0 6px 5px
+      rgba(0, 0, 0, ${props => (props.theme.isDark ? `0.072` : `0.024`)}),
+    0 9px 10px
+      rgba(0, 0, 0, ${props => (props.theme.isDark ? `0.108` : `0.036`)}),
+    0 12px 12px
+      rgba(0, 0, 0, ${props => (props.theme.isDark ? `0.144` : `0.048`)});
 
   & header {
     padding: ${divideRem(spacing.spacer, 2)} ${spacing.spacer} 0;
@@ -40,7 +71,7 @@ const StyledHubCard = styled.div`
     margin-bottom: 0;
   }
 
-  & > div {
+  & section {
     flex: 1 1 auto;
     min-height: 1px;
     padding: ${spacing.spacer};
@@ -56,41 +87,20 @@ const StyledHubCard = styled.div`
       props.theme.isDark ? color.black : color.white};
   }
 `
-const HubCard = props => {
-  const img = props.img ? (
-      <img src={props.img} alt={props.alt} />
-  ) : null
-
-  return (
-    <StyledHubCard>
-      {img}
-      <header>
-        <h3>{props.title}</h3>
-      </header>
-      <div>{props.children}</div>
-      <footer>
-        <ButtonPrimary
-          aria-label={`Browse the '${props.title}' directory`}
-          to={props.link}
-        >
-          Browse the directory
-        </ButtonPrimary>
-      </footer>
-    </StyledHubCard>
-  )
-}
 
 export default HubCard
 
 HubCard.propTypes = {
   alt: PropTypes.string,
-  image: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.object,
   link: PropTypes.string,
   title: PropTypes.string,
 }
 
 HubCard.defaultProps = {
   alt: null,
+  description: null,
   image: null,
   link: null,
   title: null,
@@ -98,6 +108,7 @@ HubCard.defaultProps = {
 
 //==================================================
 
+// Group hub cards within a row for correct alignment
 const ChildItem = styled.div`
   ${gridMixin.colBase()}
   ${gridMixin.col(12)}

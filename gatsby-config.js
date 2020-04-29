@@ -4,20 +4,18 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
-require('dotenv').config({
-  path: `.env${process.env.NODE_ENV}`
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
   siteMetadata: {
     author: `Patrick Shiel`,
-    description: `Reading University Students' Union's Wellbeing Directory offers important contact information for a rage of student needs and issues.`,
-    facebookAppID: 12345678,
+    description: `Reading University Students' Union's Welfare Directory offers important contact information for a range of student needs and issues.`,
+    facebookAppID: process.env.FACEBOOK_APP_ID,
     homepageLink: `/`,
-    imageDefault: `/websiteShareImage.jpg`,
-    imageTwitter: `/websiteTwitterImage.jpg`,
-    imageAlt: `The Reading University Students' Union Wellbeing Directory`,
     locale: `en_GB`,
+    siteUrl: `https://www.rusuwelfaredirectory.com`,
     menuLinks: [
       {
         name: `I Need Help Now`,
@@ -36,50 +34,85 @@ module.exports = {
         link: `/mental-health-support`
       },
     ],
-    socialLinks: [
-      {
-        name: `Facebook`,
-        link: `https://www.facebook.com`,
-      },
-      {
-        name: `Twitter`,
-        link: `https://www.twitter.com`,
-      },
-      {
-        name: `Instagram`,
-        link: `https://www.instagram.com`,
-      },
-    ],
-    title: `Wellbeing Directory`,
-    titleTemplate: `%s | Website title`,
-    twitterUsername: `@twitterusername`,
-    url: `https://www.websitetitle.co.uk`,
+    title: `RUSU Welfare Directory`,
+    titleTemplate: `%s | RUSU Welfare Directory`,
+    twitterUsername: `@RUSUtweets`,
   },
   plugins: [
     `gatsby-plugin-styled-components`,
     `gatsby-styled-components-dark-mode`,
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `RUSU Welfare Directory`,
         short_name: `RUSU Welfare`,
+        description: `Reading University Students' Union's Welfare Directory offers important contact information for a range of student needs and issues.`,
+        lang: `en`,
         start_url: `/`,
-        background_color: `#6b37bf`,
-        theme_color: `#6b37bf`,
+        background_color: `#ea5616`,
+        theme_color: `#f8f9fa`,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: `standalone`,
-        icon: `static/favicon.ico`, // This path is relative to the root of the site.
+        icon: `static/logo-favicon.png`,
+        icons: [
+          {
+            src: `static/logo-favicon-lg.png`,
+            sizes: `512x512`,
+            type: `image/png`,
+          },
+        ]
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages/`,
       },
     },
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `d8qgl0fke0ay`,
-        accessToken: `_pjRr9sLX2mz0gXJcW9Zy_Fqu-3pOGQeortKgf0BipU`,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: process.env.CONTENTFUL_HOST,
       },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/
+        }
+      }
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-gdpr-cookies`,
+      options: {
+        googleAnalytics: {
+          trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+          cookieName: 'google-analytics',
+          anonymize: true,
+        },
+        // googleTagManager: {
+        //   trackingId: 'YOUR_GOOGLE_TAG_MANAGER_TRACKING_ID',
+        //   cookieName: 'gatsby-gdpr-google-tagmanager',
+        //   dataLayerName: 'dataLayer',
+        // },
+        // facebookPixel: {
+        //   pixelId: 'YOUR_FACEBOOK_PIXEL_ID',
+        //   cookieName: 'gatsby-gdpr-facebook-pixel',
+        // },
+        // defines the environments where the tracking should be available  - default is ["production"]
+        environments: ['production']
+      },
+    },
   ],
 }

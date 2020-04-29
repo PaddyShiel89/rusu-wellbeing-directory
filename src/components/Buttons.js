@@ -5,58 +5,23 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowAltCircleRight } from "@fortawesome/pro-solid-svg-icons"
 
-import { color, font, spacing } from "../styles/styles"
-import { divideRem } from "../utils/maths"
+import { buttonMixin, font, spacing } from "../styles/styles"
 
-const base = {
-  borderRadius: `42px`,
-  borderWidth: `1px`,
-  color: font.base.color,
-  fontFamily: font.base.family,
-  fontWeight: font.base.weight,
-  paddingX: spacing.spacer,
-  paddingY: divideRem(spacing.spacer, 3),
-  transition: `color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out`,
-}
-
-const Btn = styled(props => <Link {...props} />)`
-  display: inline-block;
-  font-family: ${base.fontFamily};
-  font-weight: ${base.fontWeight};
-  color: ${base.color};
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-  background-color: transparent;
-  border: ${base.borderWidth} solid transparent;
-  padding: ${base.paddingY} ${base.paddingX};
-  transition: ${base.transition};
-  border-radius: ${base.borderRadius};
-  overflow: hidden;
-
-  &:hover,
-  &:focus {
-    text-decoration: none;
-    color: ${base.color};
-    background-color: transparent;
-  }
+const Btn = styled(props => {
+  const moddedProps = {...props}
+  delete moddedProps.styling
+  return <Link {...moddedProps} />
+})`
+  ${buttonMixin.base}
 
   ${props =>
     props.styling === `primary`
-      ? `
-      color: ${props.theme.isDark ? color.black : color.white};
-      background-color: ${
-        props.theme.isDark ? font.link.darkThemeColor : font.link.color
-      };
-      &:hover, &:focus {
-        color: ${props.theme.isDark ? color.black : color.white};
-        background-color: ${
-          props.theme.isDark
-            ? font.link.hover.darkThemeColor
-            : font.link.hover.color
-        };
-      }
-    `
+      ? buttonMixin.primary(props)
+      : null}
+
+  ${props =>
+    props.styling === `secondary`
+      ? buttonMixin.secondary(props)
       : null}
 `
 
@@ -101,11 +66,29 @@ export const ButtonWrapped = props => {
 export const ButtonPrimary = props => {
   const moddedProps = { ...props }
   delete moddedProps.children
+  const icon =
+    props.icon === undefined ? <Icon icon={faArrowAltCircleRight} /> : null
 
   return (
     <Btn {...moddedProps} styling="primary">
       <BtnWrapper>
-        <Icon icon={faArrowAltCircleRight} />
+        {icon}
+        {props.children}
+      </BtnWrapper>
+    </Btn>
+  )
+}
+
+export const ButtonSecondary = props => {
+  const moddedProps = { ...props }
+  delete moddedProps.children
+  const icon =
+    props.icon === null ? <Icon icon={faArrowAltCircleRight} /> : null
+
+  return (
+    <Btn {...moddedProps} styling="secondary">
+      <BtnWrapper>
+        {icon}
         {props.children}
       </BtnWrapper>
     </Btn>

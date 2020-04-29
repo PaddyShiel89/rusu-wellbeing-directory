@@ -14,5 +14,7 @@ const min = Object.keys(breakpoint.bp).reduce(
 )
 
 export default {
+  formBreakpoint: min.lg,
   min: min,
+  navigationBreakpoint: min.lg,
 }

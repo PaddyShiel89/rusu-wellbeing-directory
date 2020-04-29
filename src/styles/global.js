@@ -25,7 +25,20 @@ export default createGlobalStyle`
   #gatsby-focus-wrapper {
     position: relative;
     min-height: 100vh;
-    padding-bottom: ${spacing.footerHeight.base};
+    padding-bottom: calc(${spacing.footerHeight.base} + ${spacing.mobileNavHeight[0]});
+
+    ${breakpointMixin.min.sm`
+      padding-bottom: calc(${spacing.footerHeight.base} + ${spacing.mobileNavHeight.sm});
+    `}
+
+    ${breakpointMixin.min.md`
+      padding-bottom: calc(${spacing.footerHeight.md} + ${spacing.mobileNavHeight.sm});
+    `}
+
+    ${breakpointMixin.navigationBreakpoint`
+      padding-top: ${spacing.desktopHeaderHeight};
+      padding-bottom: ${spacing.footerHeight.md};
+    `}
   }
 
   body {
@@ -38,7 +51,7 @@ export default createGlobalStyle`
       props.theme.isDark ? font.base.darkThemeColor : font.base.color};
     text-align: left;
     background-color: ${props =>
-      props.theme.isDark ? color.gray[900] : color.gray[100]};
+      props.theme.isDark ? color.background.dark : color.background.light};
   }
 
   [tabindex="-1"]:focus:not(:focus-visible) {

@@ -84,13 +84,13 @@ const headings = {
 }
 
 const link = {
-  color: colorStyles.blue[600],
+  color: colorStyles.primary[600],
   decoration: `none`,
-  darkThemeColor: colorStyles.blue[300],
+  darkThemeColor: colorStyles.primary[300],
   hover: {
-    color: colorStyles.blue[800],
+    color: colorStyles.primary[800],
     decoration: `underline`,
-    darkThemeColor: colorStyles.blue[100]
+    darkThemeColor: colorStyles.primary[100]
   },
 }
 

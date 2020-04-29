@@ -2,25 +2,16 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGlobe, faPhoneAlt } from "@fortawesome/pro-solid-svg-icons"
+import {
+  faEnvelope,
+  faGlobe,
+  faPhoneAlt,
+  faSms,
+} from "@fortawesome/pro-solid-svg-icons"
 
 import { multiplyRem } from "../utils/maths"
 import { color, font, spacing } from "../styles/styles"
 import { ContainerMax } from "../layout/Grid"
-
-const StyledDirectoryContact = styled.article`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  padding-top: ${multiplyRem(spacing.spacer, 4)};
-  padding-bottom: ${multiplyRem(spacing.spacer, 4)};
-
-  &:nth-child(odd) {
-    background-color: ${props => props.theme.isDark ? color.black : color.white};
-  }
-`
 
 const ContactWrapper = styled.div`
   display: flex;
@@ -31,7 +22,7 @@ const ContactWrapper = styled.div`
   }
 `
 
-const WebsiteLink = styled.a`
+const ContactLink = styled.a`
   overflow-wrap: break-word;
   word-break: break-word;
 `
@@ -44,39 +35,87 @@ const Icon = styled(props => <FontAwesomeIcon {...props} aria-hidden="true" />)`
 const ItemDescription = styled.div`
   font-size: ${font.size.sm};
 `
+const EmailContact = ({ email }) => (
+  <ContactWrapper>
+    <Icon icon={faEnvelope} title={`Email`} />
+    <ContactLink href={`mailto:${email.toLowerCase()}`}>
+      {email.toLowerCase()}
+    </ContactLink>
+  </ContactWrapper>
+)
 
 const PhoneContact = data => {
-  const description = data.description ? <ItemDescription>{data.description}</ItemDescription> : null
-  const title = data.title ? <span>{data.title}: </span> : null
+  const description = data.description ? (
+    <ItemDescription>{data.description}</ItemDescription>
+  ) : null
+  const title = data.title ? <span>{`${data.title}: `}</span> : null
 
+  // Remove spaces from phone number
   const formatPhone = num => num.replace(/\s+/g, ``)
 
   return (
     <ContactWrapper>
-      <Icon
-        icon={faPhoneAlt}
-        title={`Phone`}
-      />
+      <Icon icon={faPhoneAlt} title={`Phone`} />
       <div>
-        {title}<a href={`tel:${formatPhone(data.number)}`}>{data.number}</a>
+        {title}
+        <ContactLink href={`tel:${formatPhone(data.number)}`}>
+          {formatPhone(data.number)}
+        </ContactLink>
         {description}
       </div>
     </ContactWrapper>
   )
 }
 
-const WebsiteContact = data => (
-  <ContactWrapper>
-    <Icon
-      icon={faGlobe}
-      title={`Website`}
-      />
-    <WebsiteLink href={data.link}>{data.link}</WebsiteLink>
-  </ContactWrapper>
-)
+const SMSContact = data => {
+  const description = data.description ? (
+    <ItemDescription>{data.description}</ItemDescription>
+  ) : null
+  const title = data.title ? <span>{`${data.title}: `}</span> : null
 
-const DirectoryContact = props => {
-  const description = props.description ? <p>{props.description}</p> : null
+  return (
+    <ContactWrapper>
+      <Icon icon={faSms} title={`SMS`} />
+      <div>
+        {title}
+        <ContactLink href={`sms:${data.link.toLowerCase()}`}>
+          {data.link.toLowerCase()}
+        </ContactLink>
+        {description}
+      </div>
+    </ContactWrapper>
+  )
+}
+
+const WebsiteContact = data => {
+  const description = data.description ? (
+    <ItemDescription>{data.description}</ItemDescription>
+  ) : null
+  const title = data.title ? <span>{`${data.title}: `}</span> : null
+
+  return (
+    <ContactWrapper>
+      <Icon icon={faGlobe} title={`Website`} />
+      <div>
+        {title}
+        <ContactLink href={data.link.toLowerCase()}>
+          {data.link.toLowerCase()}
+        </ContactLink>
+        {description}
+      </div>
+    </ContactWrapper>
+  )
+}
+
+const DirectoryContact = styled(props => {
+
+  const description = props.description ? (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: props.description.childMarkdownRemark.html,
+      }}
+    />
+  ) : null
 
   const p1 = props.phone1 ? (
     <PhoneContact
@@ -102,30 +141,70 @@ const DirectoryContact = props => {
     />
   ) : null
 
-  const web = props.website ? <WebsiteContact link={props.website} /> : null
+  const web = props.website ? (
+    <WebsiteContact
+      link={props.website}
+      description={props.websiteDescription}
+      title={props.websiteTitle}
+    />
+  ) : null
+
+  const web2 = props.website2 ? (
+    <WebsiteContact
+      link={props.website2}
+      description={props.websiteDescription2}
+      title={props.websiteTitle2}
+    />
+  ) : null
+
+  const email = props.email ? <EmailContact email={props.email} /> : null
+
+  const text1 = props.sms1 ? (
+    <SMSContact
+      link={props.sms1}
+      description={props.sms1Description}
+      title={props.sms1Title}
+    />
+  ) : null
 
   return (
-    <StyledDirectoryContact>
+    <article className={props.className} >
       <ContainerMax>
-      <header>
-        <h3>{props.title}</h3>
-      </header>
-      {description}
-      <div>
-        {p1}
-        {p2}
-        {p3}
-        {web}
-      </div>
+        <header>
+          <h3>{props.title}</h3>
+        </header>
+        {description}
+        <div>
+          {web}
+          {web2}
+          {email}
+          {p1}
+          {p2}
+          {p3}
+          {text1}
+        </div>
       </ContainerMax>
-    </StyledDirectoryContact>
+    </article>
   )
-}
+})`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  padding-top: ${multiplyRem(spacing.spacer, 4)};
+  padding-bottom: ${multiplyRem(spacing.spacer, 4)};
+
+  &:nth-child(odd) {
+    background-color: ${props =>
+      props.theme.isDark ? color.black : color.white};
+  }
+`
 
 export default DirectoryContact
 
 DirectoryContact.propTypes = {
-  description: PropTypes.string,
+  description: PropTypes.object,
   email: PropTypes.string,
   phone1: PropTypes.string,
   phone1Description: PropTypes.string,
@@ -133,8 +212,12 @@ DirectoryContact.propTypes = {
   phone2: PropTypes.string,
   phone2Description: PropTypes.string,
   phone2Title: PropTypes.string,
+  sms1: PropTypes.string,
+  sms1Description: PropTypes.string,
+  sms1Title: PropTypes.string,
   title: PropTypes.string,
   website: PropTypes.string,
+  website2: PropTypes.string,
 }
 
 DirectoryContact.defaultProps = {
@@ -146,6 +229,10 @@ DirectoryContact.defaultProps = {
   phone2: null,
   phone2Description: null,
   phone2Title: null,
+  sms1: null,
+  sms1Description: null,
+  sms1Title: null,
   title: null,
   website: null,
+  website2: null,
 }

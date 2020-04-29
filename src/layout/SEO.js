@@ -10,9 +10,6 @@ const SEO = ({ title, description, image, imageAlt, imageTwitter, pathname, arti
       site: {
         siteMetadata: {
           defaultDescription,
-          defaultImage,
-          defaultImageAlt,
-          defaultImageTwitter,
           defaultTitle,
           facebookAppID,
           locale,
@@ -21,13 +18,17 @@ const SEO = ({ title, description, image, imageAlt, imageTwitter, pathname, arti
           twitterUsername,
         },
       },
+      contentfulAsset : {
+        defaultImage,
+        defaultImageAlt,
+      }
     }) => {
       const seo = {
         title: title || defaultTitle,
         description: description || defaultDescription,
-        image: `${siteUrl}${image || defaultImage}`,
+        image: image || defaultImage.url,
         imageAlt: `${imageAlt || defaultImageAlt}`,
-        imageTwitter: `${siteUrl}${imageTwitter || defaultImageTwitter}`,
+        imageTwitter: imageTwitter || defaultImage.url,
         url: `${siteUrl}${pathname || "/"}`,
       }
 
@@ -86,15 +87,18 @@ const query = graphql`
     site {
       siteMetadata {
         defaultDescription: description
-        defaultImage: imageDefault
-        defaultImageAlt: imageAlt
-        defaultImageTwitter: imageTwitter
         defaultTitle: title
         facebookAppID
         locale
-        siteUrl: url
+        siteUrl
         titleTemplate
         twitterUsername
+      }
+    }
+    contentfulAsset(title: {eq: "rusu-welfare-directory"}) {
+      defaultImageAlt: description
+      defaultImage: file {
+        url
       }
     }
   }
