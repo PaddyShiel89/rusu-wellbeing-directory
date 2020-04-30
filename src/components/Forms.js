@@ -22,7 +22,7 @@ const Form = styled( props => {
       data-netlify-honeypot="bot-field"
       className={props.className}
     >
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value={props.name} />
       {props.children}
       <Col>
         <button type="reset">Reset form</button>

@@ -11,6 +11,11 @@ const CookieConsent = styled(props => {
   const gaCookie = `google-analytics`
   const ga = getCookie(gaCookie)
 
+  const cookieButtonClick = (value, e) => {
+    e.preventDefault()
+    setCookie(gaCookie, value, 90)
+  }
+
   if (ga === ("true" || "false")) {
     return null
   } else {
@@ -25,10 +30,10 @@ const CookieConsent = styled(props => {
             <p><strong>Please accept or reject cookies for your device.</strong></p>
           </div>
           <div>
-            <ButtonPrimary to="/" icon={null} onClick={() => setCookie(gaCookie, true, 90)}>
+            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, true)}>
               Accept cookies
             </ButtonPrimary>
-            <ButtonPrimary to="/" icon={null} onClick={() => setCookie(gaCookie, false, 90)}>Reject cookies</ButtonPrimary>
+            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, false)}>Reject cookies</ButtonPrimary>
           </div>
         </ContainerMax>
       </section>

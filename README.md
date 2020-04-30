@@ -2,6 +2,10 @@
 
 ## Changelog
 
+* 1.0.3 - 30/04/20
+    - Corrected form component input value for Netlify
+    - Fixed bug with cookie consent buttons redirecting to the homepage on click
+
 * 1.0.2 - 30/04/20
     - Removed form success page
     - Removed form component action
