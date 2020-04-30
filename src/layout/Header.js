@@ -55,7 +55,7 @@ const MaxWidths = styled.div`
 
 // Logo link. Styled for text logo by default
 const Logo = styled(props => {
-  const moddedProps = {...props}
+  const moddedProps = { ...props }
   delete moddedProps.theme
   return <Link {...moddedProps} />
 })`
@@ -67,7 +67,8 @@ const Logo = styled(props => {
   white-space: nowrap;
   color: ${props =>
     props.theme.isDark ? font.link.darkThemeColor : font.link.color};
-  transition: color ${transition.duration.default}ms ${transition.timingFunction.default};
+  transition: color ${transition.duration.default}ms
+    ${transition.timingFunction.default};
 
   svg {
     height: 2rem;
@@ -79,7 +80,9 @@ const Logo = styled(props => {
   &:hover {
     text-decoration: none;
     color: ${props =>
-      props.theme.isDark ? font.link.hover.darkThemeColor : font.link.hover.color};
+      props.theme.isDark
+        ? font.link.hover.darkThemeColor
+        : font.link.hover.color};
   }
 `
 
@@ -96,7 +99,7 @@ const Nav = styled.nav`
   & ul {
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none;  
+    list-style: none;
   }
 `
 
@@ -110,7 +113,7 @@ export default props => (
         <Header>
           <MaxWidths>
             <Logo theme={props.theme} to={siteMetadata.homepageLink}>
-              <RusuLogo /> {siteMetadata.title}
+              <RusuLogo /> Welfare Directory
             </Logo>
             <Nav>
               <DropdownMenu items={data.allContentfulHubPage.edges} />

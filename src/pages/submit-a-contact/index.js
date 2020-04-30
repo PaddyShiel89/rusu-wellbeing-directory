@@ -22,7 +22,7 @@ export default () => {
       <p>
         We aim to keep the RUSU Welfare Directory as up to date and relevant as possible. If you know of an organisation that should be featured in the directory, or if you represent an organisation featured in the directory that has changed its contact details, please let us know using the form below.
       </p>
-      <Form name="contact-submissions" action={`./success`}>
+      <Form name="contact-submissions">
         <TextField id="name" label="Your name" isRequired />
         <EmailField id="email" label="Your email address" isRequired />
         <TextField id="orgName" label="Organisation name" isRequired />
