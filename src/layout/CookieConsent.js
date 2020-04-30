@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 
 import { getCookie, setCookie } from "../utils/cookies"
@@ -10,17 +10,19 @@ import { multiplyRem } from "../utils/maths"
 const CookieConsent = styled(props => {
   const gaCookie = `google-analytics`
   const ga = getCookie(gaCookie)
+  const [cookiesEnabled, toggleCookies] = useState(ga)
 
   const cookieButtonClick = (value, e) => {
     e.preventDefault()
     setCookie(gaCookie, value, 90)
+    toggleCookies(value)
   }
 
   if (ga === ("true" || "false")) {
     return null
   } else {
     return (
-      <section className={props.className} style={{display: `block`}}>
+      <section className={props.className} style={{display: cookiesEnabled !== ("true" || "false") ? `block` : `none`}}>
         <ContainerMax>
           <div>
             <p>
