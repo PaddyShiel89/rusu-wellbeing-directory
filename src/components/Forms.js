@@ -18,7 +18,6 @@ const Form = styled( props => {
     <form
       name={props.name}
       method="POST"
-      action={props.action}
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       className={props.className}
@@ -54,12 +53,10 @@ const Form = styled( props => {
 export default Form
 
 Form.propTypes = {
-  action: PropTypes.string,
   name: PropTypes.string.isRequired,
 }
 
 Form.defaultProps = {
-  action: null,
   name: null,
 }
 
