@@ -18,11 +18,11 @@ const CookieConsent = styled(props => {
     toggleCookies(value)
   }
 
-  if (ga === ("true" || "false")) {
+  if (ga === "true" || ga === "false") {
     return null
   } else {
     return (
-      <section className={props.className} style={{display: cookiesEnabled !== ("true" || "false") ? `block` : `none`}}>
+      <section className={props.className} style={{display: cookiesEnabled === "true" || cookiesEnabled === "false" ? `none` : `block`}}>
         <ContainerMax>
           <div>
             <p>
@@ -32,10 +32,10 @@ const CookieConsent = styled(props => {
             <p><strong>Please accept or reject cookies for your device.</strong></p>
           </div>
           <div>
-            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, true)}>
+            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, "true")}>
               Accept cookies
             </ButtonPrimary>
-            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, false)}>Reject cookies</ButtonPrimary>
+            <ButtonPrimary to="/" icon={null} onClick={cookieButtonClick.bind(this, "false")}>Reject cookies</ButtonPrimary>
           </div>
         </ContainerMax>
       </section>
