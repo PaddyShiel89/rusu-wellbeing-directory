@@ -15,7 +15,7 @@ module.exports = {
     facebookAppID: process.env.FACEBOOK_APP_ID,
     homepageLink: `/`,
     locale: `en_GB`,
-    siteUrl: `https://www.rusuwelfaredirectory.com`,
+    siteUrl: `https://www.rusuwelfaredirectory.co.uk`,
     menuLinks: [
       {
         name: `I Need Help Now`,
@@ -62,7 +62,7 @@ module.exports = {
             sizes: `512x512`,
             type: `image/png`,
           },
-        ]
+        ],
       },
     },
     {
