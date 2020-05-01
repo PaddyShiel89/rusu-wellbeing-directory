@@ -33,6 +33,8 @@ const Footer = styled.footer`
     text-decoration: ${font.link.decoration};
     background-color: transparent;
 
+    padding: ${divideRem(spacing.spacer, 2)} 0;
+
     &:hover {
       color: ${font.link.hover.darkThemeColor};
       text-decoration: none;
@@ -65,7 +67,6 @@ export default ({ darkMode }) => (
           <a href="https://www.rusu.co.uk/terms-and-conditions/">
             Terms &amp; Conditions
           </a>
-          <Link to="/sitemap.xml">Sitemap</Link>
         </FooterContainer>
       </Row>
     </ContainerMax>

@@ -37,6 +37,7 @@ const SEO = ({ title, description, image, imageAlt, imageTwitter, pathname, arti
       return (
         <>
           <Helmet title={seo.title} titleTemplate={formatTitleTemplate}>
+            <html lang="en" />
             <link rel="stylesheet" href="https://use.typekit.net/jst8qrt.css" />
             <meta name="description" content={seo.description} />
             <meta name="image" content={seo.image} />

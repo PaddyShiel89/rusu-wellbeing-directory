@@ -2,7 +2,7 @@
   "name": "rusu-welfare-directory",
   "private": true,
   "description": "RUSU Welfare Directory",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Patrick Shiel",
   "scripts": {
     "build": "gatsby build",

@@ -56,13 +56,6 @@ module.exports = {
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: `standalone`,
         icon: `static/logo-favicon.png`,
-        icons: [
-          {
-            src: `static/logo-favicon-lg.png`,
-            sizes: `512x512`,
-            type: `image/png`,
-          },
-        ],
       },
     },
     {
