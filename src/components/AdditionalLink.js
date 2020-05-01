@@ -17,7 +17,7 @@ const AdditionalLinks = styled(props => {
           {props.items.map(item => (
             <li key={item.id}>
               <FontAwesomeIcon icon={faGlobe} title="Website" />
-              <a href={item.link}>{item.title}</a>
+              <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
             </li>
           ))}
         </ul>

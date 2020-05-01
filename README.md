@@ -1,6 +1,9 @@
 <h1 align="center">RUSU Welfare Directory</h1>
 
 ## Changelog
+* 1.0.5 - 01/05/20
+    - Links to external websites now open in a new tab.
+
 * 1.0.4 - 01/05/20
     - Removed sitemap from footer
     - Added lang attribute to html tag

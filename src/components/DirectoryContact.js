@@ -98,7 +98,7 @@ const WebsiteContact = data => {
       <Icon icon={faGlobe} title={`Website`} />
       <div>
         {title}
-        <ContactLink href={data.link.toLowerCase()}>
+        <ContactLink href={data.link.toLowerCase()} target="_blank" rel="noopener noreferrer">
           {data.link.toLowerCase()}
         </ContactLink>
         {description}
